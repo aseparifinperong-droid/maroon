@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Undangan Pernikahan - Rizal & Amalia</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+/* ---------- RESET ---------- */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  color:#2b2b2b;
+  background:#fff;
+  overflow-x:hidden;
+  scroll-behavior:smooth;
+}
+
+/* ---------- BACKGROUND VIDEO ---------- */
+.bg-video{
+  position:fixed; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  z-index:-100;
+  opacity:.40;
+}
+
+/* ---------- GENERIC SECTION ---------- */
+.section{
+  position:relative;
+  padding:100px 18px;
+  text-align:center;
+  min-height:380px;
+  overflow:hidden;
+  opacity:0;
+  transform:translateY(28px);
+  transition: opacity .8s ease, transform .8s ease;
+  z-index:2;
+}
+
+/* when in view (reveal) */
+.section.in-view{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* heading style (stylish) */
+.h-fancy{
+  font-family:"Great Vibes",cursive;
+  font-size:42px;
+  color:#4a2f26;
+  margin-bottom:10px;
+  line-height:1;
+}
+
+/* small headings */
+h3{font-weight:600;margin-bottom:8px;color:#3a2a23}
+
+/* paragraph */
+p{font-size:15px;line-height:1.7;color:#3b3b3b}
+
+/* centered card that makes text readable */
+.text-box{
+  width:92%; max-width:720px;
+  margin:18px auto;
+  padding:22px;
+  border-radius:16px;
+  background:rgba(255,255,255,0.55);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 30px rgba(60,40,30,0.08);
+}
+
+/* ornament header/footer */
+.ornament-header, .ornament-footer{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  width:220px;
+  opacity:.22;
+  pointer-events:none;
+  z-index:-5;
+}
+.ornament-header{ top:12px }
+.ornament-footer{ bottom:12px }
+
+/* overlay ornament (soft) */
+.section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image: url('img/background-bunga.jpg');
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:contain;
+  opacity:0.12;
+  z-index:-8;
+  pointer-events:none;
+  animation: floatSlow 9s ease-in-out infinite alternate;
+}
+@keyframes floatSlow{
+  0%{ transform: translateY(0) }
+  100%{ transform: translateY(14px) }
+}
+
+/* ---------- SPLASH / OPENING ---------- */
+#opening{
+  position:fixed; inset:0;
+  display:flex; flex-direction:column; justify-content:center; align-items:center;
+  text-align:center;
+  padding:20px;
+  background:linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.35));
+  z-index:150;
+  color:#fff;
+}
+.cover-photo{
+  width:220px;height:220px;border-radius:50%;object-fit:cover;border:4px solid rgba(255,255,255,.95);
+  box-shadow:0 8px 30px rgba(0,0,0,.35); margin-bottom:18px;
+}
+#openButton{
+  margin-top:18px;padding:12px 28px;border-radius:28px;border:none;background:#4a2f26;color:#fff;font-weight:600;
+  cursor:pointer; font-size:16px;
+}
+#openButton:hover{opacity:.9}
+
+/* ---------- GALLERY MASONRY ---------- */
+.gallery-grid{
+  width:92%; max-width:1000px; margin:20px auto 6px; column-gap:12px;
+  column-count:2;
+}
+.gallery-grid img{
+  width:100%; display:inline-block; margin-bottom:12px; border-radius:12px; break-inside:avoid;
+  box-shadow:0 6px 20px rgba(0,0,0,0.12); cursor:pointer; transition: transform .25s ease; opacity:0;
+}
+.gallery-grid img:hover{ transform: scale(1.03) }
+
+/* responsive columns */
+@media(min-width:600px){ .gallery-grid{ column-count:3 } }
+@media(min-width:900px){ .gallery-grid{ column-count:4 } }
+
+/* ---------- LIGHTBOX ---------- */
+#lightbox{
+  position:fixed; inset:0; display:none; z-index:1000;
+  background: rgba(0,0,0,0.88); justify-content:center; align-items:center;
+}
+#lightbox img{
+  max-width:92%; max-height:86%; border-radius:14px; box-shadow:0 10px 40px rgba(0,0,0,0.4);
+}
+
+/* ---------- COUNTDOWN ---------- */
+#countdown{ font-size:20px; font-weight:700; margin-top:10px; color:#3a2a23 }
+
+/* ---------- RSVP BUTTON ---------- */
+.btn-wa{
+  display:inline-block; padding:12px 20px; background:#25D366; color:#063; border-radius:28px; text-decoration:none;
+  font-weight:600; box-shadow: 0 6px 18px rgba(37,211,102,0.18);
+}
+
+/* ---------- QR / GIFT ---------- */
+.qris{ width:160px; margin-top:12px; border-radius:8px; box-shadow: 0 8px 26px rgba(0,0,0,0.12) }
+
+/* ---------- PETALS (falling) ---------- */
+.petal{
+  position:fixed; top:-10%; pointer-events:none; z-index:60; opacity:.92;
+  animation: fall linear infinite, sway ease-in-out infinite;
+  will-change: transform, left;
+}
+@keyframes fall{ from{ transform: translateY(-10vh) rotate(0deg) } to{ transform: translateY(110vh) rotate(360deg) } }
+@keyframes sway{ 0%{ margin-left:0 } 50%{ margin-left:28px } 100%{ margin-left:0 } }
+
+/* ---------- PARALLAX (simple) ---------- */
+.parallax{
+  background-attachment: fixed;
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+  min-height:220px;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+  padding:28px 16px; text-align:center; color:#6b594f; font-size:14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(240,240,240,0.02));
+}
+
+/* small screens adjustments */
+@media(max-width:480px){
+  .h-fancy{ font-size:34px }
+  .section{ padding:70px 14px; min-height:320px }
+  .ornament-header,.ornament-footer{ width:140px; opacity:.18 }
+}
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND VIDEO -->
+<video class="bg-video" autoplay muted loop playsinline>
+  <source src="video/video-bg.mp4" type="video/mp4">
+  <!-- fallback image if video not supported -->
+</video>
+
+<!-- MUSIC (will be played on user action) -->
+<audio id="bgMusic" loop>
+  <source src="music/backsound.mp3" type="audio/mp3">
+</audio>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="img/kelopak-bunga.png" alt="foto besar">
+</div>
+
+<!-- SPLASH / OPENING -->
+<div id="opening" aria-hidden="false">
+  <img src="img/bg-cover1.jpg" alt="Cover Photo" class="cover-photo">
+  <div style="text-align:center;">
+    <div style="font-family: 'Great Vibes', cursive; font-size:48px; color:#fff;">Rizal &amp; Amalia</div>
+    <div style="color:#fff; margin-top:6px;">Minggu, 12 Januari 2026</div>
+  </div>
+  <button id="openButton" onclick="openInvitation()">Buka Undangan</button>
+</div>
+
+<!-- ===================== SECTION 1 - COVER ===================== -->
+<section class="section" id="sec1">
+  <img src="img/header-bunga.png" class="ornament-header" alt="">
+  <div class="text-box">
+    <div class="h-fancy">The Wedding of</div>
+    <h3>Rizal &amp; Amalia</h3>
+    <p>Kepada Yth. Bapak/Ibu/Saudara/i, kami mengundang ke acara pernikahan kami.</p>
+  </div>
+  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
+</section>
+
+<!-- ===================== SECTION 2 - PEMBUKAAN ===================== -->
+<section class="section" id="sec2">
+  <img src="img/header-bunga.png" class="ornament-header" alt="">
+  <div class="text-box">
+    <p>Assalamu'alaikum warahmatullahi wabarakatuh. Dengan penuh syukur kami mengundang Anda.</p>
+  </div>
+  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
+</section>
+
+<!-- ===================== SECTION 3 - MEMPELAI ===================== -->
+<section class="section" id="sec3">
+  <img src="img/header-bunga.png" class="ornament-header" alt="">
+  <div class="text-box">
+    <div class="h-fancy">Mempelai</div>
+    <h3>Rizal Pratama</h3>
+    <p>Putra dari Bapak Agus &amp; Ibu Sari</p>
+    <h3 style="margin-top:12px;">Amalia Nur</h3>
+    <p>Putri dari Bapak Hendri &amp; Ibu Lilis</p>
+  </div>
+  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
+</section>
+
+<!-- ===================== SECTION 4 - DETAIL ACARA ===================== -->
+<section class="section" id="sec4">
+  <img src="img/header-bunga.png" class="ornament-header" alt="">
+  <div class="text-box">
+    <div class="h-fancy">Detail Acara</div>
+    <p>Akad: Minggu, 12 Jan 2026 — 09:00 WIB</p>
+    <p>Resepsi: Minggu, 12 Jan 2026 — 11:00 - 14:00 WIB</p>
+  </div>
+  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
+</section>
+
+<!-- ===================== SECTION 5 - LOKASI ===================== -->
+<section class="section" id="sec5">
+  <img src="img/header-bunga.png" class="ornament-header" alt="">
+  <div class="text-box">
+    <div class="h-fancy">Lokasi</div>
+    <p>Gedung Mawar, Jl. Kenangan No. 12, Jakarta</p>
+    <p><a href="https://www.google.com/maps" target="_blank" rel="noopener">Lihat di Google Maps</a></p>
+  </div>
+  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
+</section>
+
+<!-- ===================== SECTION 6 - COUNTDOWN ===================== -->
+<section class="section" id="sec6">
+  <img src="img/header-bunga.png" class="ornament-header" alt="">
+  <div class="text-box">
+    <div class="h-fancy">Menuju Hari Bahagia</div>
+    <div id="countdown">-- Hari : -- Jam : -- Menit : -- Detik</div>
+  </div>
+  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
+</section>
+
+<!-- ===================== SECTION 7 - CERITA KAMI ===================== -->
+<section class="section" id="sec7">
+  <img src="img/header-bunga.png" class="ornament-header" alt="">
+  <div class="text-box">
+    <div class="h-fancy">Cerita Kami</div>
+    <p>Kami bertemu di sebuah acara kecil dan tumbuh bersama sampai memutuskan menikah.</p>
+  </div>
+  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
+</section>
+
+<!-- ===================== SECTION 8 - GALLERY (MASONRY + LIGHTBOX) ===================== -->
+<section class="section" id="sec8">
+  <img src= "img/header-bunga.png" class="ornament-header" alt="">
+  <div class="text-box" style="margin-bottom:18px">
+    <div class="h-fancy">Galeri</div>
+    <p>Beberapa momen indah perjalanan kami</p>
+  </div>
+
+  <div class="gallery-grid fade-in" id="gallery">
+    <img class="fade-in" src="img/gallery1.jpg" alt="galeri1">
+    <img class="fade-in" src="img/gallery2.jpg" alt="galeri2">
+    <img class="fade-in" src="img/gallery3.jpg" alt="galeri3">
+    <img class="fade-in" src="img/gallery4.jpg" alt="galeri4">
+    <img class="fade-in" src="img/gallery5.jpg" alt="galeri5">
+    <img class="fade-in" src="img/gallery6.jpg" alt="galeri6">
+  </div>
+
+  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
+</section>
+
+<!-- ===================== SECTION 9 - QUOTES / DOA ===================== -->
+<section class="section" id="sec9">
+  <img src="img/header-bunga.png" class="ornament-header" alt="">
+  <div class="text-box">
+    <div class="h-fancy">Quotes</div>
+    <p>"Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan untukmu pasangan — agar kamu merasa tenteram kepadanya..."</p>
+  </div>
+  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
+</section>
+
+<!-- ===================== SECTION 10 - MAP / DIREKSI ===================== -->
+<section class="section parallax" id="sec10" style="background-image:url('cover-bg.jpg');">
+  <img src="img/header-bunga.png" class="ornament-header" alt="">
+  <div class="text-box">
+    <div class="h-fancy">Peta Lokasi</div>
+    <p>Gunakan petunjuk arah di Google Maps untuk kemudahan menuju lokasi acara.</p>
+  </div>
+  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
+</section>
+
+<!-- ===================== SECTION 11 - RSVP (WhatsApp) ===================== -->
+<section class="section" id="sec11">
+  <img src="img/header-bunga.png" class="ornament-header" alt="">
+  <div class="text-box">
+    <div class="h-fancy">RSVP</div>
+    <p>Mohon konfirmasi kehadiran Anda melalui WhatsApp agar kami dapat menyiapkan tempat.</p>
+
+    <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%20Rizal%20%26%20Amalia,%20saya%20ingin%20konfirmasi%20kehadiran" target="_blank" rel="noopener">
+      Konfirmasi via WhatsApp
+    </a>
+  </div>
+  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
+</section>
+
+<!-- ===================== SECTION 12 - WEDDING GIFT / QRIS ===================== -->
+<section class="section" id="sec12">
+  <img src="img/header-bunga.png" class="ornament-header" alt="">
+  <div class="text-box">
+    <div class="h-fancy">Wedding Gift</div>
+    <p>Doa restu Anda sudah sangat berarti. Jika ingin memberikan tanda kasih, dapat via rek berikut:</p>
+    <p><strong>BANK BCA</strong> - 1234567890 (Rizal Pratama)</p>
+    <img src="qris.png" alt="qris" class="qris">
+  </div>
+  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
+</section>
+
+<!-- ===================== SECTION 13 - UCAPAN & PENUTUP ===================== -->
+<section class="section" id="sec13">
+  <img src="img/header-bunga.png" class="ornament-header" alt="">
+  <div class="text-box">
+    <div class="h-fancy">Terima Kasih</div>
+    <p>Merupakan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan mendoakan.</p>
+    <p>Wassalamu'alaikum warahmatullahi wabarakatuh</p>
+  </div>
+  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>Made with ❤ by Rizal &amp; Amalia</div>
+  <div style="margin-top:6px; font-size:13px;">© 2026 All Rights Reserved</div>
+</footer>
+
+<!-- SCRIPTS -->
+<script>
+/* ---------- OPEN INVITATION (play music & remove splash) ---------- */
+function openInvitation(){
+  const opening = document.getElementById('opening');
+  opening.style.transition = 'opacity .6s ease';
+  opening.style.opacity = '0';
+  setTimeout(()=> opening.style.display='none', 700);
+
+  // play music (user gesture required)
+  const music = document.getElementById('bgMusic');
+  music.play().catch(()=>{ /* ignore if blocked */ });
+}
+
+/* ---------- REVEAL ON SCROLL (IntersectionObserver) ---------- */
+const sections = document.querySelectorAll('.section');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add('in-view');
+  });
+},{threshold: 0.15});
+sections.forEach(s=>io.observe(s));
+
+/* ---------- COUNTDOWN ---------- */
+/* Set tanggal H here (YYYY-MM-DDTHH:MM:SS) */
+const weddingDate = new Date("2026-01-12T00:00:00").getTime();
+function updateCountdown(){
+  const now = Date.now();
+  const diff = weddingDate - now;
+  if(diff <= 0){
+    document.getElementById('countdown').innerText = "Telah berlangsung";
+    clearInterval(countdownInterval);
+    return;
+  }
+  const d = Math.floor(diff / (1000*60*60*24));
+  const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+  const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+  const s = Math.floor((diff % (1000*60)) / 1000);
+  document.getElementById('countdown').innerText = `${d} Hari : ${h} Jam : ${m} Menit : ${s} Detik`;
+}
+updateCountdown();
+const countdownInterval = setInterval(updateCountdown, 1000);
+
+/* ---------- LIGHTBOX for gallery ---------- */
+function openLightbox(src){
+  const lightbox = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  img.src = src;
+  lightbox.style.display = 'flex';
+}
+function closeLightbox(){
+  const lightbox = document.getElementById('lightbox');
+  lightbox.style.display = 'none';
+}
+
+/* wire gallery images (if present) */
+document.addEventListener("DOMContentLoaded", ()=>{
+  document.querySelectorAll('.gallery-grid img').forEach(img=>{
+    img.style.opacity = 0;
+    // fade-in stagger
+    setTimeout(()=> img.style.opacity = 1, 300 + Math.random()*700);
+    img.addEventListener('click', ()=> openLightbox(img.src));
+  });
+});
+
+/* ---------- PETAL FALL EFFECT (optimized) ---------- */
+function createPetal(){
+  const petal = document.createElement('img');
+  petal.src = 'img/kelopak-bunga.png'; // replace with your petal PNG
+  petal.className = 'petal';
+
+  // randomize size and position
+  const size = Math.random()*18 + 12; // 12 - 30 px
+  petal.style.width = size + 'px';
+  petal.style.left = Math.random()*100 + 'vw';
+
+  // random durations
+  const fall = (Math.random()*6 + 6).toFixed(2); // 6 - 12s
+  const sway = (Math.random()*4 + 3).toFixed(2); // 3 - 7s
+  petal.style.animationDuration = `${fall}s, ${sway}s`;
+
+  // random opacity & rotation
+  petal.style.opacity = (0.7 + Math.random()*0.25).toString();
+
+  document.body.appendChild(petal);
+  // remove after finished falling
+  setTimeout(()=> {
+    petal.remove();
+  }, fall*1000 + 500);
+}
+
+// start petals at interval (reduced on small screens)
+let petalInterval;
+function startPetals(){
+  const isMobile = window.matchMedia("(max-width:600px)").matches;
+  const interval = isMobile ? 900 : 600;
+  petalInterval = setInterval(createPetal, interval);
+}
+startPetals();
+
+/* ---------- OPTIONAL: stop petals when tab not visible (save perf) ---------- */
+document.addEventListener('visibilitychange', ()=>{
+  if(document.hidden){
+    clearInterval(petalInterval);
+  } else {
+    startPetals();
+  }
+});
+
+/* ---------- SIMPLE PARALLAX TWEAK (opt) ---------- */
+/* For more advanced parallax use libraries; this is a light tweak */
+window.addEventListener('scroll', ()=>{
+  document.querySelectorAll('.parallax').forEach(el=>{
+    const rect = el.getBoundingClientRect();
+    const speed = 0.25; // smaller = slower background
+    const y = - (rect.top) * speed;
+    el.style.backgroundPosition = `center ${y}px`;
+  });
+});
+</script>
+
+</body>
+</html>
