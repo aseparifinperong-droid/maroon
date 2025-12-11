@@ -74,38 +74,6 @@ p{font-size:15px;line-height:1.7;color:#3b3b3b}
   box-shadow: 0 6px 30px rgba(60,40,30,0.08);
 }
 
-/* ornament header/footer */
-.ornament-header, .ornament-footer{
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-  width:220px;
-  opacity:.22;
-  pointer-events:none;
-  z-index:-5;
-}
-.ornament-header{ top:12px }
-.ornament-footer{ bottom:12px }
-
-/* overlay ornament (soft) */
-.section::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background-image: url('img/background-bunga.jpg');
-  background-repeat:no-repeat;
-  background-position:center;
-  background-size:contain;
-  opacity:0.12;
-  z-index:-8;
-  pointer-events:none;
-  animation: floatSlow 9s ease-in-out infinite alternate;
-}
-@keyframes floatSlow{
-  0%{ transform: translateY(0) }
-  100%{ transform: translateY(14px) }
-}
-
 /* ---------- SPLASH / OPENING ---------- */
 #opening{
   position:fixed; inset:0;
@@ -180,12 +148,6 @@ p{font-size:15px;line-height:1.7;color:#3b3b3b}
   min-height:220px;
 }
 
-/* ---------- FOOTER ---------- */
-footer{
-  padding:28px 16px; text-align:center; color:#6b594f; font-size:14px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(240,240,240,0.02));
-}
-
 /* small screens adjustments */
 @media(max-width:480px){
   .h-fancy{ font-size:34px }
@@ -224,82 +186,67 @@ footer{
 
 <!-- ===================== SECTION 1 - COVER ===================== -->
 <section class="section" id="sec1">
-  <img src="img/header-bunga.png" class="ornament-header" alt="">
-  <div class="text-box">
+   <div class="text-box">
     <div class="h-fancy">The Wedding of</div>
     <h3>Rizal &amp; Amalia</h3>
     <p>Kepada Yth. Bapak/Ibu/Saudara/i, kami mengundang ke acara pernikahan kami.</p>
   </div>
-  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
-</section>
+ </section>
 
 <!-- ===================== SECTION 2 - PEMBUKAAN ===================== -->
 <section class="section" id="sec2">
-  <img src="img/header-bunga.png" class="ornament-header" alt="">
-  <div class="text-box">
+   <div class="text-box">
     <p>Assalamu'alaikum warahmatullahi wabarakatuh. Dengan penuh syukur kami mengundang Anda.</p>
   </div>
-  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
-</section>
+ </section>
 
 <!-- ===================== SECTION 3 - MEMPELAI ===================== -->
 <section class="section" id="sec3">
-  <img src="img/header-bunga.png" class="ornament-header" alt="">
-  <div class="text-box">
+   <div class="text-box">
     <div class="h-fancy">Mempelai</div>
     <h3>Rizal Pratama</h3>
     <p>Putra dari Bapak Agus &amp; Ibu Sari</p>
     <h3 style="margin-top:12px;">Amalia Nur</h3>
     <p>Putri dari Bapak Hendri &amp; Ibu Lilis</p>
   </div>
-  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
-</section>
+ </section>
 
 <!-- ===================== SECTION 4 - DETAIL ACARA ===================== -->
 <section class="section" id="sec4">
-  <img src="img/header-bunga.png" class="ornament-header" alt="">
   <div class="text-box">
     <div class="h-fancy">Detail Acara</div>
     <p>Akad: Minggu, 12 Jan 2026 — 09:00 WIB</p>
     <p>Resepsi: Minggu, 12 Jan 2026 — 11:00 - 14:00 WIB</p>
   </div>
-  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
-</section>
+  </section>
 
 <!-- ===================== SECTION 5 - LOKASI ===================== -->
 <section class="section" id="sec5">
-  <img src="img/header-bunga.png" class="ornament-header" alt="">
-  <div class="text-box">
+   <div class="text-box">
     <div class="h-fancy">Lokasi</div>
     <p>Gedung Mawar, Jl. Kenangan No. 12, Jakarta</p>
     <p><a href="https://www.google.com/maps" target="_blank" rel="noopener">Lihat di Google Maps</a></p>
   </div>
-  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
 </section>
 
 <!-- ===================== SECTION 6 - COUNTDOWN ===================== -->
 <section class="section" id="sec6">
-  <img src="img/header-bunga.png" class="ornament-header" alt="">
-  <div class="text-box">
+    <div class="text-box">
     <div class="h-fancy">Menuju Hari Bahagia</div>
     <div id="countdown">-- Hari : -- Jam : -- Menit : -- Detik</div>
   </div>
-  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
 </section>
 
 <!-- ===================== SECTION 7 - CERITA KAMI ===================== -->
-<section class="section" id="sec7">
-  <img src="img/header-bunga.png" class="ornament-header" alt="">
+<section>
   <div class="text-box">
     <div class="h-fancy">Cerita Kami</div>
     <p>Kami bertemu di sebuah acara kecil dan tumbuh bersama sampai memutuskan menikah.</p>
   </div>
-  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
 </section>
 
 <!-- ===================== SECTION 8 - GALLERY (MASONRY + LIGHTBOX) ===================== -->
 <section class="section" id="sec8">
-  <img src= "img/header-bunga.png" class="ornament-header" alt="">
   <div class="text-box" style="margin-bottom:18px">
     <div class="h-fancy">Galeri</div>
     <p>Beberapa momen indah perjalanan kami</p>
@@ -313,33 +260,26 @@ footer{
     <img class="fade-in" src="img/gallery5.jpg" alt="galeri5">
     <img class="fade-in" src="img/gallery6.jpg" alt="galeri6">
   </div>
-
-  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
 </section>
 
 <!-- ===================== SECTION 9 - QUOTES / DOA ===================== -->
 <section class="section" id="sec9">
-  <img src="img/header-bunga.png" class="ornament-header" alt="">
   <div class="text-box">
     <div class="h-fancy">Quotes</div>
     <p>"Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan untukmu pasangan — agar kamu merasa tenteram kepadanya..."</p>
   </div>
-  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
 </section>
 
 <!-- ===================== SECTION 10 - MAP / DIREKSI ===================== -->
 <section class="section parallax" id="sec10" style="background-image:url('cover-bg.jpg');">
-  <img src="img/header-bunga.png" class="ornament-header" alt="">
   <div class="text-box">
     <div class="h-fancy">Peta Lokasi</div>
     <p>Gunakan petunjuk arah di Google Maps untuk kemudahan menuju lokasi acara.</p>
   </div>
-  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
 </section>
 
 <!-- ===================== SECTION 11 - RSVP (WhatsApp) ===================== -->
 <section class="section" id="sec11">
-  <img src="img/header-bunga.png" class="ornament-header" alt="">
   <div class="text-box">
     <div class="h-fancy">RSVP</div>
     <p>Mohon konfirmasi kehadiran Anda melalui WhatsApp agar kami dapat menyiapkan tempat.</p>
@@ -348,30 +288,25 @@ footer{
       Konfirmasi via WhatsApp
     </a>
   </div>
-  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
 </section>
 
 <!-- ===================== SECTION 12 - WEDDING GIFT / QRIS ===================== -->
 <section class="section" id="sec12">
-  <img src="img/header-bunga.png" class="ornament-header" alt="">
-  <div class="text-box">
+    <div class="text-box">
     <div class="h-fancy">Wedding Gift</div>
     <p>Doa restu Anda sudah sangat berarti. Jika ingin memberikan tanda kasih, dapat via rek berikut:</p>
     <p><strong>BANK BCA</strong> - 1234567890 (Rizal Pratama)</p>
     <img src="qris.png" alt="qris" class="qris">
   </div>
-  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
 </section>
 
 <!-- ===================== SECTION 13 - UCAPAN & PENUTUP ===================== -->
 <section class="section" id="sec13">
-  <img src="img/header-bunga.png" class="ornament-header" alt="">
-  <div class="text-box">
+    <div class="text-box">
     <div class="h-fancy">Terima Kasih</div>
     <p>Merupakan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan mendoakan.</p>
     <p>Wassalamu'alaikum warahmatullahi wabarakatuh</p>
   </div>
-  <img src="img/footer-bunga.png" class="ornament-footer" alt="">
 </section>
 
 <!-- FOOTER -->
